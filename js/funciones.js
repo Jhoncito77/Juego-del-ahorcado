@@ -11,6 +11,7 @@ botonIniciar.addEventListener("click",function(){
 
     let palabraSecreta = elegirPalabra();
     console.log(palabraSecreta);
+    mostrarLineas(palabraSecreta);
 
 });
 
@@ -27,3 +28,12 @@ function elegirPalabra(){
     
 }
 
+function mostrarLineas(palabra){
+    let div = document.querySelector("#palabra");
+    
+    for(let i=0;i<palabra.length;i++){
+        let nuevoDiv = document.createElement("div");
+        nuevoDiv.classList.add("guiones");
+        div.appendChild(nuevoDiv);
+    }
+}

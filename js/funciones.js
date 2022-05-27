@@ -4,6 +4,9 @@
 var pantalla = document.querySelector("canvas");
 var pincel = pantalla.getContext("2d");
 var botonIniciar = document.querySelector("#botoniniciar");
+var palabras = ["HOLA", "QUE", "MAS", "COMO", "ESTA", "PC", "LORENA", "JUAN", "JHON", "MORENO"];
+var juegoEnCurso = false;
+
 
 botonIniciar.addEventListener("click",function(){
     botonIniciar.classList.add("ocultar");
@@ -12,10 +15,28 @@ botonIniciar.addEventListener("click",function(){
     let palabraSecreta = elegirPalabra();
     console.log(palabraSecreta);
     mostrarLineas(palabraSecreta);
-
+    
+    
+    juegoEnCurso = true;
+    document.addEventListener("keypress",function(event){
+        if(juegoEnCurso){
+            let espacios = document.querySelectorAll(".guiones");
+            
+            console.log(event.key);
+            if(event.which >= 65 && event.which <= 90 ){
+                let letra = event.key;
+                console.log("Letra valida");
+                if(palabraSecreta.includes(letra)){
+                    //pintar la letra en su respectivo espacio
+                }
+            }else{
+                console.log("Letra invalida");
+            }
+        }
+    });
 });
 
-var palabras = ["HOLA", "QUE", "MAS", "COMO", "ESTA", "PC", "LORENA", "JUAN", "JHON", "MORENO"];
+
 
 function elegirPalabra(){
     let i = Math.round(Math.random()*palabras.length)-1;
@@ -36,4 +57,12 @@ function mostrarLineas(palabra){
         nuevoDiv.classList.add("guiones");
         div.appendChild(nuevoDiv);
     }
+}
+
+function validacionLetra(event){
+    let letraPulsada = event.code;
+    if(letraPulsada >= 65 && letraPulsada <= 96){
+        console.log(letraPulsada)
+    }
+    return letraPulsada;
 }

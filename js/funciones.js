@@ -109,16 +109,28 @@ function validacionLetra(event){
     return letraPulsada;
 }
 
+//continuar...
 function dibujarHorca(){
     let canvas = document.querySelector("canvas");
-    let pincel = canvas.getContext("2d");
-    pincel.beginPath();
-    pincel.fillStyle = "darkblue"
-    pincel.moveTo(34,325);
-    pincel.lineTo(284,325);
-    pincel.moveTo(105,325);
-    pincel.lineTo(105,280);
+    if(canvas.getContext){
+        let pincel = canvas.getContext("2d");
+                
+        let anchoCanvas = canvas.width;
+        let altoCanvas = canvas.height;
+        console.log(anchoCanvas,altoCanvas);
+        
+        
+        pincel.fillStyle = "darkblue";
+        //450 300  
+        console.log(anchoCanvas*0.1 , altoCanvas*0.85, anchoCanvas*0.9, altoCanvas*0.9)
+        pincel.fillRect(anchoCanvas*0.1 , altoCanvas*0.9, anchoCanvas*0.8, 4.5);
+        pincel.fillRect(anchoCanvas*0.3 , altoCanvas*0.1, 4.5, altoCanvas*0.8);
+        pincel.fillRect(anchoCanvas*0.3 , altoCanvas*0.1, anchoCanvas*0.3, 4.5);
+        pincel.fillRect(anchoCanvas*0.6 , altoCanvas*0.1, 4.5, altoCanvas*0.1);
+        
+    }else{
+        console.log("No hay getContext")
+    }
     
-    pincel.fill();
-    console.log("canvas dibujado")
+    
 }

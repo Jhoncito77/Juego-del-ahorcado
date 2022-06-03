@@ -20,11 +20,24 @@
         <div id="divcanvas">
             <canvas class="ocultar" width="450" height="300"></canvas>
         </div>
-        <button id="botoniniciar">Iniciar juego</button>
-        <div id="palabra">
-            
+        <div id="divinput">
+            <input type="text" id="input" placeholder="Ingrese una palabra" class="ocultar">
         </div>
-        
+        <div id="divmensaje">
+            <p id="mensaje"></p>
+        </div>
+        <button id="botoniniciar">Iniciar juego</button>
+        <div id="palabra" class="ocultar"></div>
+        <button id="botonnuevapalabra">Agregar nueva palabra</button>
+        <div id="divrecomendacion">
+            <img src="imagenes/icon-advertencia.png" alt="recomendacion" class="ocultar" id="icono">
+            <p id="recomendacion" class="ocultar">Max. de 8 letras</p>
+        </div>
+        <div id="divbotones">
+            <button id="botonGuardar" class="ocultar">Guardar y empezar</button>
+            <button id="botonCancelar" class="ocultar">Cancelar</button>
+        </div>
+
     </main>
 
     <footer>
@@ -33,5 +46,6 @@
     </footer>
 
     <script src="js/funciones.js"></script>
+    <script src="js/agregarPalabra.js"></script>
 </body>
 </html>

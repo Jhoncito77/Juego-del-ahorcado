@@ -7,16 +7,20 @@ var botonIniciar = document.querySelector("#botoniniciar");
 var palabras = ["HOLA", "QUE", "MAS", "COMO", "ESTA", "PC", "LORENA", "JUAN", "JHON", "MORENO"];
 var juegoEnCurso = false;
 var equivocaciones = 0;
+var aciertos = 0;
 
 botonIniciar.addEventListener("click",function(){
+    let botonNuevaPalabra = document.querySelector("#botonnuevapalabra");
+    botonNuevaPalabra.classList.add("ocultar");
     botonIniciar.classList.add("ocultar");
     pantalla.classList.remove("ocultar");
-
+    dibujarHorca1();
     let palabraSecreta = elegirPalabra();
     console.log(palabraSecreta);
     mostrarLineas(palabraSecreta);
     let divLetrasNoValidas = document.createElement("div");
     let divPrincipal = document.querySelector("#palabra");
+    divPrincipal.classList.remove("ocultar");
     divLetrasNoValidas.classList.add("divletrasincorrectas");
     divPrincipal.appendChild(divLetrasNoValidas);
     
@@ -38,15 +42,21 @@ botonIniciar.addEventListener("click",function(){
                         if(palabraSecreta[i] == letra){
                             ingresarLetraEnDiv.textContent = letra;
                             espacios[i].appendChild(ingresarLetraEnDiv);
-                            
+                            aciertos++;
                         }
+                    }
+                    
+                    if(palabraSecreta.length==aciertos){
+                        
+                        let final = true
+                        finDelJuego(final);
                     }
                 }else{
                     let datoLetrasIncorrectas = document.querySelectorAll(".letrasincorrectas");
                     
                     if(datoLetrasIncorrectas.length == 0){
                         agregarLetraIncorrecta(letra);
-                        dibujarHorca();
+                        dibujarHorca2();
                         return;
                     }
                     let contador=0;
@@ -61,17 +71,23 @@ botonIniciar.addEventListener("click",function(){
                         equivocaciones++;
                     }
                     if(equivocaciones==1){
-                        dibujarCabeza();
+                        dibujarHorca3();
                     }if(equivocaciones==2){
-                        dibujarTronco();
+                        dibujarHorca4();
                     }if(equivocaciones==3){
-                        dibujarPiernaIzquierda();
+                        dibujarCabeza();
                     }if(equivocaciones==4){
-                        dibujarPiernaDerecha();
+                        dibujarTronco();
                     }if(equivocaciones==5){
-                        dibujarBrazoIzquierdo();
+                        dibujarPiernaIzquierda();
                     }if(equivocaciones==6){
+                        dibujarPiernaDerecha();
+                    }if(equivocaciones==7){
+                        dibujarBrazoIzquierdo();
+                    }if(equivocaciones==8){
                         dibujarBrazoDerecho();
+                        let final = false;
+                        finDelJuego(final);
                     }
                         
                 }
@@ -124,28 +140,66 @@ function validacionLetra(event){
     return letraPulsada;
 }
 
-function dibujarHorca(){
+function dibujarHorca1(){
     let canvas = document.querySelector("canvas");
     if(canvas.getContext){
         let pincel = canvas.getContext("2d");
-                
         let anchoCanvas = canvas.width;
         let altoCanvas = canvas.height;
         console.log(anchoCanvas,altoCanvas);
-        
-        
         pincel.fillStyle = "darkblue";
-
         pincel.fillRect(anchoCanvas*0.1 , altoCanvas*0.9, anchoCanvas*0.8, 4.5);
-        pincel.fillRect(anchoCanvas*0.3 , altoCanvas*0.1, 4.5, altoCanvas*0.8);
-        pincel.fillRect(anchoCanvas*0.3 , altoCanvas*0.1, anchoCanvas*0.3, 4.5);
-        pincel.fillRect(anchoCanvas*0.6 , altoCanvas*0.1, 4.5, altoCanvas*0.1);
         
     }else{
         console.log("No hay getContext")
     }
-    
-    
+}
+
+function dibujarHorca2(){
+    let canvas = document.querySelector("canvas");
+    if(canvas.getContext){
+        let pincel = canvas.getContext("2d");
+        let anchoCanvas = canvas.width;
+        let altoCanvas = canvas.height;
+        console.log(anchoCanvas,altoCanvas);
+        pincel.fillStyle = "darkblue";
+        
+        pincel.fillRect(anchoCanvas*0.3 , altoCanvas*0.1, 4.5, altoCanvas*0.8);
+        
+    }else{
+        console.log("No hay getContext")
+    }
+}
+
+function dibujarHorca3(){
+    let canvas = document.querySelector("canvas");
+    if(canvas.getContext){
+        let pincel = canvas.getContext("2d");
+        let anchoCanvas = canvas.width;
+        let altoCanvas = canvas.height;
+        console.log(anchoCanvas,altoCanvas);
+        pincel.fillStyle = "darkblue";
+        
+        pincel.fillRect(anchoCanvas*0.3 , altoCanvas*0.1, anchoCanvas*0.3, 4.5);
+        
+    }else{
+        console.log("No hay getContext")
+    }
+}
+
+function dibujarHorca4(){
+    let canvas = document.querySelector("canvas");
+    if(canvas.getContext){
+        let pincel = canvas.getContext("2d");
+        let anchoCanvas = canvas.width;
+        let altoCanvas = canvas.height;
+        console.log(anchoCanvas,altoCanvas);
+        pincel.fillStyle = "darkblue";
+        
+        pincel.fillRect(anchoCanvas*0.6 , altoCanvas*0.1, 4.5, altoCanvas*0.1);
+    }else{
+        console.log("No hay getContext")
+    }
 }
 
 function dibujarCabeza(){
@@ -230,5 +284,14 @@ function dibujarBrazoDerecho(){
         pincel.moveTo(anchoCanvas*0.6+2, altoCanvas*0.5);
         pincel.lineTo(anchoCanvas*0.65, altoCanvas*0.6);
         pincel.stroke()
+    }
+}
+function finDelJuego(boolean){
+    let mensaje = document.querySelector("#mensaje");
+    if(boolean){
+        mensaje.textContent="¡Felicidades, Ganaste!";
+    }else{
+        mensaje.style.color="red";
+        mensaje.textContent="Fin del juego!"
     }
 }

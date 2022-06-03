@@ -8,6 +8,8 @@ botonAgregarPalabra.addEventListener("click",function(){
     botonIniciarJuego.classList.add("ocultar");
     let inputPalabraNueva = document.querySelector("#input");
     inputPalabraNueva.classList.remove("ocultar");
+    let divBotones = document.querySelector("#divbotones");
+    divBotones.classList.remove("ocultar");
     let botonGuardar = document.querySelector("#botonGuardar");
     botonGuardar.classList.remove("ocultar");
     let botonCancelar = document.querySelector("#botonCancelar");
@@ -17,3 +19,5 @@ botonAgregarPalabra.addEventListener("click",function(){
     let recomendacion = document.querySelector("#recomendacion");
     recomendacion.classList.remove("ocultar");
 });
+
+//continuar eventos de botones para guardar palabra nueva y cancelar

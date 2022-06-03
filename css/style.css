@@ -1,6 +1,5 @@
 body{
-    width: auto;
-    height: auto;
+    
     background: #F3F5FC;
 }
 
@@ -25,8 +24,16 @@ body{
 
 #input{
     position: relative;
-    width: 200px;
+    width: auto;
     height: 100px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 150%;
+    border: none;
+    background: none;
+    
 }
 
 #divrecomendacion{
@@ -219,7 +226,7 @@ canvas{
     width: 15%;
     height: 7%;
     left: 42.5%;
-    top: 55%;
+    top: 53%;
     border: 1px solid #0A3871;
     border-radius: 24px;
     font-family: 'Inter';

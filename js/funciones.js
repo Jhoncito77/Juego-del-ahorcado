@@ -6,7 +6,7 @@ var pantalla = document.querySelector("canvas");
 var botonIniciar = document.querySelector("#botoniniciar");
 var palabras = ["HOLA", "QUE", "MAS", "COMO", "ESTA", "PC", "LORENA", "JUAN", "JHON", "MORENO"];
 var juegoEnCurso = false;
-
+var equivocaciones = 0;
 
 botonIniciar.addEventListener("click",function(){
     botonIniciar.classList.add("ocultar");
@@ -55,8 +55,23 @@ botonIniciar.addEventListener("click",function(){
                             contador++;
                         }
                     }
+                    
                     if(contador==0){
                         agregarLetraIncorrecta(letra);
+                        equivocaciones++;
+                    }
+                    if(equivocaciones==1){
+                        dibujarCabeza();
+                    }if(equivocaciones==2){
+                        dibujarTronco();
+                    }if(equivocaciones==3){
+                        dibujarPiernaIzquierda();
+                    }if(equivocaciones==4){
+                        dibujarPiernaDerecha();
+                    }if(equivocaciones==5){
+                        dibujarBrazoIzquierdo();
+                    }if(equivocaciones==6){
+                        dibujarBrazoDerecho();
                     }
                         
                 }
@@ -109,7 +124,6 @@ function validacionLetra(event){
     return letraPulsada;
 }
 
-//continuar...
 function dibujarHorca(){
     let canvas = document.querySelector("canvas");
     if(canvas.getContext){
@@ -121,8 +135,7 @@ function dibujarHorca(){
         
         
         pincel.fillStyle = "darkblue";
-        //450 300  
-        console.log(anchoCanvas*0.1 , altoCanvas*0.85, anchoCanvas*0.9, altoCanvas*0.9)
+
         pincel.fillRect(anchoCanvas*0.1 , altoCanvas*0.9, anchoCanvas*0.8, 4.5);
         pincel.fillRect(anchoCanvas*0.3 , altoCanvas*0.1, 4.5, altoCanvas*0.8);
         pincel.fillRect(anchoCanvas*0.3 , altoCanvas*0.1, anchoCanvas*0.3, 4.5);
@@ -133,4 +146,89 @@ function dibujarHorca(){
     }
     
     
+}
+
+function dibujarCabeza(){
+    let canvas = document.querySelector("canvas");
+    if(canvas.getContext){
+        let pincel = canvas.getContext("2d");
+        let anchoCanvas = canvas.width;
+        let altoCanvas = canvas.height;
+        pincel.beginPath();
+        pincel.strokeStyle = "darkblue";
+        pincel.lineWidth=4.5;
+        pincel.arc(anchoCanvas*0.6,altoCanvas*0.3,(altoCanvas*0.2/2),0,Math.PI*2,true);
+        pincel.stroke();
+    }
+}
+
+function dibujarTronco(){
+    let canvas = document.querySelector("canvas");
+    if(canvas.getContext){
+        let pincel = canvas.getContext("2d");
+        let anchoCanvas = canvas.width;
+        let altoCanvas = canvas.height;
+        pincel.fillStyle = "darkblue";
+        pincel.fillRect(anchoCanvas*0.6 , altoCanvas*0.4, 4.5, altoCanvas*0.3+2);
+    }
+}
+
+function dibujarPiernaIzquierda(){
+    let canvas = document.querySelector("canvas");
+    if(canvas.getContext){
+        let pincel = canvas.getContext("2d");
+        let anchoCanvas = canvas.width;
+        let altoCanvas = canvas.height;
+        pincel.beginPath();
+        pincel.lineWidth=4.5;
+        pincel.strokeStyle = "darkblue";
+        pincel.moveTo(anchoCanvas*0.6+2, altoCanvas*0.7);
+        pincel.lineTo(anchoCanvas*0.55, altoCanvas*0.8);
+        pincel.stroke()
+    }
+}
+
+function dibujarPiernaDerecha(){
+    let canvas = document.querySelector("canvas");
+    if(canvas.getContext){
+        let pincel = canvas.getContext("2d");
+        let anchoCanvas = canvas.width;
+        let altoCanvas = canvas.height;
+        pincel.beginPath();
+        pincel.lineWidth=4.5;
+        pincel.strokeStyle = "darkblue";
+        pincel.moveTo(anchoCanvas*0.6+2, altoCanvas*0.7);
+        pincel.lineTo(anchoCanvas*0.65, altoCanvas*0.8);
+        pincel.stroke()
+    }
+}
+
+function dibujarBrazoIzquierdo(){
+    let canvas = document.querySelector("canvas");
+    if(canvas.getContext){
+        let pincel = canvas.getContext("2d");
+        let anchoCanvas = canvas.width;
+        let altoCanvas = canvas.height;
+        pincel.beginPath();
+        pincel.lineWidth=4.5;
+        pincel.strokeStyle = "darkblue";
+        pincel.moveTo(anchoCanvas*0.6+2, altoCanvas*0.5);
+        pincel.lineTo(anchoCanvas*0.55, altoCanvas*0.6);
+        pincel.stroke()
+    }
+}
+
+function dibujarBrazoDerecho(){
+    let canvas = document.querySelector("canvas");
+    if(canvas.getContext){
+        let pincel = canvas.getContext("2d");
+        let anchoCanvas = canvas.width;
+        let altoCanvas = canvas.height;
+        pincel.beginPath();
+        pincel.lineWidth=4.5;
+        pincel.strokeStyle = "darkblue";
+        pincel.moveTo(anchoCanvas*0.6+2, altoCanvas*0.5);
+        pincel.lineTo(anchoCanvas*0.65, altoCanvas*0.6);
+        pincel.stroke()
+    }
 }

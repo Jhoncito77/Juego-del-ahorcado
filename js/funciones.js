@@ -4,98 +4,125 @@
 var pantalla = document.querySelector("canvas");
 
 var botonIniciar = document.querySelector("#botoniniciar");
-var palabras = ["HOLA", "QUE", "MAS", "COMO", "ESTA", "PC", "LORENA", "JUAN", "JHON", "MORENO"];
+var botonNuevaPalabra = document.querySelector("#botonnuevapalabra");
+var divPrincipal = document.querySelector("#palabra");
+var botonNuevoJuego = document.querySelector("#nuevoJuego");
+var botonDesistir = document.querySelector("#desistir");
+var divBotonesJuego = document.querySelector("#divbotonesjuego");
+var palabras = ["HOLA", "CABALLO", "MACHADO", "REINARAS", "CABALLOS", "PC", "LORENA", "DANIEL", "JHON", "MORENO"];
 var juegoEnCurso = false;
 var equivocaciones = 0;
 var aciertos = 0;
+var contador=0;
+var palabraSecreta="";
 
 botonIniciar.addEventListener("click",function(){
-    let botonNuevaPalabra = document.querySelector("#botonnuevapalabra");
+    
     botonNuevaPalabra.classList.add("ocultar");
     botonIniciar.classList.add("ocultar");
     pantalla.classList.remove("ocultar");
+    divBotonesJuego.classList.remove("ocultar");
+    botonNuevoJuego.classList.remove("ocultar");
+    botonDesistir.classList.remove("ocultar");
     dibujarHorca1();
-    let palabraSecreta = elegirPalabra();
+    palabraSecreta = elegirPalabra(palabras);
     console.log(palabraSecreta);
     mostrarLineas(palabraSecreta);
     let divLetrasNoValidas = document.createElement("div");
-    let divPrincipal = document.querySelector("#palabra");
+    
     divPrincipal.classList.remove("ocultar");
     divLetrasNoValidas.classList.add("divletrasincorrectas");
     divPrincipal.appendChild(divLetrasNoValidas);
     
     juegoEnCurso = true;
-    document.addEventListener("keypress",function(event){
-        if(juegoEnCurso){
-            let espacios = document.querySelectorAll(".guiones");
+
+    
+});
+
+function validarAciertos(letra){
+    let letrasUsadas = document.querySelectorAll(".letrascorrectas");
+    letrasUsadas.forEach(element => {
+        if(element.textContent == letra){
+            letra = "" ;
             
-            console.log(event.key);
-            if(event.which >= 65 && event.which <= 90 ){
-                let letra = event.key;
-                
-                if(palabraSecreta.includes(letra)){
-                    
-                    for(let i=0;i<palabraSecreta.length;i++){
-                        let ingresarLetraEnDiv = document.createElement("p");
-                        ingresarLetraEnDiv.classList.add("letrascorrectas");
-                        
-                        if(palabraSecreta[i] == letra){
-                            ingresarLetraEnDiv.textContent = letra;
-                            espacios[i].appendChild(ingresarLetraEnDiv);
-                            aciertos++;
-                        }
-                    }
-                    
-                    if(palabraSecreta.length==aciertos){
-                        
-                        let final = true
-                        finDelJuego(final);
-                    }
-                }else{
-                    let datoLetrasIncorrectas = document.querySelectorAll(".letrasincorrectas");
-                    
-                    if(datoLetrasIncorrectas.length == 0){
-                        agregarLetraIncorrecta(letra);
-                        dibujarHorca2();
-                        return;
-                    }
-                    let contador=0;
-                    for(let i = 0;i<datoLetrasIncorrectas.length;i++){
-                        if(datoLetrasIncorrectas[i].textContent == letra){
-                            contador++;
-                        }
-                    }
-                    
-                    if(contador==0){
-                        agregarLetraIncorrecta(letra);
-                        equivocaciones++;
-                    }
-                    if(equivocaciones==1){
-                        dibujarHorca3();
-                    }if(equivocaciones==2){
-                        dibujarHorca4();
-                    }if(equivocaciones==3){
-                        dibujarCabeza();
-                    }if(equivocaciones==4){
-                        dibujarTronco();
-                    }if(equivocaciones==5){
-                        dibujarPiernaIzquierda();
-                    }if(equivocaciones==6){
-                        dibujarPiernaDerecha();
-                    }if(equivocaciones==7){
-                        dibujarBrazoIzquierdo();
-                    }if(equivocaciones==8){
-                        dibujarBrazoDerecho();
-                        let final = false;
-                        finDelJuego(final);
-                    }
-                        
-                }
-            }else{
-                console.log("Letra no mayuscula");
-            }
         }
     });
+    return letra;
+}
+
+document.addEventListener("keypress",function(event){
+    if(juegoEnCurso){
+        let espacios = document.querySelectorAll(".guiones");
+        
+        console.log(event.key);
+        console.log(palabraSecreta)
+        if(event.which >= 65 && event.which <= 90 ){
+            let letra = event.key;
+            console.log(palabraSecreta)
+            if(palabraSecreta.includes(letra)){
+                console.log(palabraSecreta)
+                let letraValidada = validarAciertos(letra);
+                for(let i=0;i<palabraSecreta.length;i++){
+                    let ingresarLetraEnDiv = document.createElement("p");
+                    ingresarLetraEnDiv.classList.add("letrascorrectas");
+                    
+                    if(palabraSecreta[i] == letraValidada){
+
+                        ingresarLetraEnDiv.textContent = letraValidada;
+                        espacios[i].appendChild(ingresarLetraEnDiv);
+                        aciertos++;
+                    }
+                }
+                
+                if(palabraSecreta.length==aciertos){
+                    
+                    let final = true
+                    finDelJuego(final);
+                }
+            }else{
+                let datoLetrasIncorrectas = document.querySelectorAll(".letrasincorrectas");
+                
+                if(datoLetrasIncorrectas.length == 0){
+                    agregarLetraIncorrecta(letra);
+                    dibujarHorca2();
+                    return;
+                }
+                
+                for(let i = 0;i<datoLetrasIncorrectas.length;i++){
+                    if(datoLetrasIncorrectas[i].textContent == letra){
+                        contador++;
+                    }
+                }
+                console.log(contador)
+                if(contador==0){
+                    agregarLetraIncorrecta(letra);
+                    equivocaciones++;
+                }
+                if(equivocaciones==1){
+                    dibujarHorca3();
+                }if(equivocaciones==2){
+                    dibujarHorca4();
+                }if(equivocaciones==3){
+                    dibujarCabeza();
+                }if(equivocaciones==4){
+                    dibujarTronco();
+                }if(equivocaciones==5){
+                    dibujarPiernaIzquierda();
+                }if(equivocaciones==6){
+                    dibujarPiernaDerecha();
+                }if(equivocaciones==7){
+                    dibujarBrazoIzquierdo();
+                }if(equivocaciones==8){
+                    dibujarBrazoDerecho();
+                    let final = false;
+                    finDelJuego(final);
+                }
+                contador=0;    
+            }
+        }else{
+            console.log("Letra no mayuscula");
+        }
+    }
 });
 
 function agregarLetraIncorrecta(letra){
@@ -111,7 +138,7 @@ function agregarLetraIncorrecta(letra){
     divLetraIncorrecta.appendChild(ingresarLetraEnDiv);
 }
 
-function elegirPalabra(){
+function elegirPalabra(palabras){
     let i = Math.round(Math.random()*palabras.length)-1;
     if(i<0){
         i=0;
@@ -146,10 +173,9 @@ function dibujarHorca1(){
         let pincel = canvas.getContext("2d");
         let anchoCanvas = canvas.width;
         let altoCanvas = canvas.height;
-        console.log(anchoCanvas,altoCanvas);
         pincel.fillStyle = "darkblue";
         pincel.fillRect(anchoCanvas*0.1 , altoCanvas*0.9, anchoCanvas*0.8, 4.5);
-        
+        console.log("prueba")
     }else{
         console.log("No hay getContext")
     }
@@ -161,7 +187,6 @@ function dibujarHorca2(){
         let pincel = canvas.getContext("2d");
         let anchoCanvas = canvas.width;
         let altoCanvas = canvas.height;
-        console.log(anchoCanvas,altoCanvas);
         pincel.fillStyle = "darkblue";
         
         pincel.fillRect(anchoCanvas*0.3 , altoCanvas*0.1, 4.5, altoCanvas*0.8);
@@ -177,7 +202,6 @@ function dibujarHorca3(){
         let pincel = canvas.getContext("2d");
         let anchoCanvas = canvas.width;
         let altoCanvas = canvas.height;
-        console.log(anchoCanvas,altoCanvas);
         pincel.fillStyle = "darkblue";
         
         pincel.fillRect(anchoCanvas*0.3 , altoCanvas*0.1, anchoCanvas*0.3, 4.5);
@@ -193,7 +217,6 @@ function dibujarHorca4(){
         let pincel = canvas.getContext("2d");
         let anchoCanvas = canvas.width;
         let altoCanvas = canvas.height;
-        console.log(anchoCanvas,altoCanvas);
         pincel.fillStyle = "darkblue";
         
         pincel.fillRect(anchoCanvas*0.6 , altoCanvas*0.1, 4.5, altoCanvas*0.1);
@@ -289,9 +312,12 @@ function dibujarBrazoDerecho(){
 function finDelJuego(boolean){
     let mensaje = document.querySelector("#mensaje");
     if(boolean){
+        mensaje.style.color="green";
         mensaje.textContent="¡Felicidades, Ganaste!";
+        juegoEnCurso=false;
     }else{
         mensaje.style.color="red";
-        mensaje.textContent="Fin del juego!"
+        mensaje.textContent="Fin del juego!";
+        juegoEnCurso=false;
     }
 }

@@ -1,23 +1,97 @@
 var botonAgregarPalabra = document.querySelector("#botonnuevapalabra");
-
-
+var botonGuardarPalabra = document.querySelector("#botonGuardar");
+var icono = document.querySelector("#icono");
+var recomendacion = document.querySelector("#recomendacion");
+var botonCancelar = document.querySelector("#botonCancelar");
+var divBotones = document.querySelector("#divbotones");
+var nuevaPalabra = document.querySelector("#input");
 
 botonAgregarPalabra.addEventListener("click",function(){
     botonAgregarPalabra.classList.add("ocultar");
-    let botonIniciarJuego = document.querySelector("#botoniniciar");
-    botonIniciarJuego.classList.add("ocultar");
-    let inputPalabraNueva = document.querySelector("#input");
-    inputPalabraNueva.classList.remove("ocultar");
-    let divBotones = document.querySelector("#divbotones");
+    botonIniciar.classList.add("ocultar");
+    nuevaPalabra.classList.remove("ocultar");
     divBotones.classList.remove("ocultar");
-    let botonGuardar = document.querySelector("#botonGuardar");
-    botonGuardar.classList.remove("ocultar");
-    let botonCancelar = document.querySelector("#botonCancelar");
+    botonGuardarPalabra.classList.remove("ocultar");
     botonCancelar.classList.remove("ocultar");
-    let icono = document.querySelector("#icono");
     icono.classList.remove("ocultar");
-    let recomendacion = document.querySelector("#recomendacion");
     recomendacion.classList.remove("ocultar");
 });
 
 //continuar eventos de botones para guardar palabra nueva y cancelar
+
+botonGuardarPalabra.addEventListener("click",function(){
+    
+    palabras.push(nuevaPalabra.value.toUpperCase());
+    icono.classList.add("ocultar");
+    recomendacion.classList.add("ocultar");
+    botonCancelar.classList.add("ocultar");
+    divBotones.classList.add("ocultar");
+    nuevaPalabra.classList.add("ocultar");
+    botonGuardarPalabra.classList.add("ocultar");
+
+    botonIniciar.click();
+
+});
+
+botonCancelar.addEventListener("click",function(){
+    botonAgregarPalabra.classList.remove("ocultar");
+    botonIniciar.classList.remove("ocultar");
+    nuevaPalabra.classList.add("ocultar");
+    divBotones.classList.add("ocultar");
+    botonGuardarPalabra.classList.add("ocultar");
+    botonCancelar.classList.add("ocultar");
+    icono.classList.add("ocultar");
+    recomendacion.classList.add("ocultar");
+});
+
+botonNuevoJuego.addEventListener("click",function(){
+    
+    let divLetrasIncorrectas = document.querySelector(".divletrasincorrectas");
+    let letrasIncorrectas = document.querySelectorAll(".divletraincorrecta");
+    letrasIncorrectas.forEach(element => {
+        divLetrasIncorrectas.removeChild(element);
+    });
+    divLetrasIncorrectas.remove();
+    let guiones = document.querySelectorAll(".guiones");
+    guiones.forEach(element => {
+        divPrincipal.removeChild(element);
+    });
+    equivocaciones=0;
+    aciertos=0;
+    contador=0;
+    juegoEnCurso=false;
+    let mensaje = document.querySelector("#mensaje");
+    mensaje.textContent="";
+    pantalla.width=pantalla.width;
+
+    botonIniciar.click();
+});
+
+botonDesistir.addEventListener("click",function(){
+    let divLetrasIncorrectas = document.querySelector(".divletrasincorrectas");
+    let letrasIncorrectas = document.querySelectorAll(".divletraincorrecta");
+    letrasIncorrectas.forEach(element => {
+        divLetrasIncorrectas.removeChild(element);
+    });
+    divLetrasIncorrectas.remove();
+    let guiones = document.querySelectorAll(".guiones");
+    guiones.forEach(element => {
+        divPrincipal.removeChild(element);
+    });
+    equivocaciones=0;
+    aciertos=0;
+    contador=0;
+    juegoEnCurso=false;
+    let mensaje = document.querySelector("#mensaje");
+    mensaje.textContent="";
+    pantalla.width=pantalla.width;
+
+    botonNuevaPalabra.classList.remove("ocultar");
+    botonIniciar.classList.remove("ocultar");
+    pantalla.classList.add("ocultar");
+    divBotonesJuego.classList.add("ocultar");
+    botonNuevoJuego.classList.add("ocultar");
+    botonDesistir.classList.add("ocultar");
+    divPrincipal.classList.add("ocultar");
+    
+})

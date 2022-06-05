@@ -26,7 +26,7 @@ botonIniciar.addEventListener("click",function(){
     botonDesistir.classList.remove("ocultar");
     dibujarHorca1();
     palabraSecreta = elegirPalabra(palabras);
-    console.log(palabraSecreta);
+    
     mostrarLineas(palabraSecreta);
     let divLetrasNoValidas = document.createElement("div");
     
@@ -53,21 +53,14 @@ function validarAciertos(letra){
 document.addEventListener("keypress",function(event){
     if(juegoEnCurso){
         let espacios = document.querySelectorAll(".guiones");
-        
-        console.log(event.key);
-        console.log(palabraSecreta)
         if(event.which >= 65 && event.which <= 90 ){
             let letra = event.key;
-            console.log(palabraSecreta)
             if(palabraSecreta.includes(letra)){
-                console.log(palabraSecreta)
                 let letraValidada = validarAciertos(letra);
                 for(let i=0;i<palabraSecreta.length;i++){
                     let ingresarLetraEnDiv = document.createElement("p");
                     ingresarLetraEnDiv.classList.add("letrascorrectas");
-                    
-                    if(palabraSecreta[i] == letraValidada){
-
+                     if(palabraSecreta[i] == letraValidada){
                         ingresarLetraEnDiv.textContent = letraValidada;
                         espacios[i].appendChild(ingresarLetraEnDiv);
                         aciertos++;
@@ -93,7 +86,7 @@ document.addEventListener("keypress",function(event){
                         contador++;
                     }
                 }
-                console.log(contador)
+                
                 if(contador==0){
                     agregarLetraIncorrecta(letra);
                     equivocaciones++;
@@ -127,7 +120,7 @@ document.addEventListener("keypress",function(event){
 
 function agregarLetraIncorrecta(letra){
     let ingresarLetraEnDiv = document.createElement("p");
-    console.log("letra no es de la palabra secreta")
+    
     let divLetraIncorrecta = document.createElement("div");
     let divLetrasNoValidas = document.querySelector(".divletrasincorrectas");
     divLetrasNoValidas.appendChild(divLetraIncorrecta);
@@ -175,7 +168,7 @@ function dibujarHorca1(){
         let altoCanvas = canvas.height;
         pincel.fillStyle = "darkblue";
         pincel.fillRect(anchoCanvas*0.1 , altoCanvas*0.9, anchoCanvas*0.8, 4.5);
-        console.log("prueba")
+        
     }else{
         console.log("No hay getContext")
     }
